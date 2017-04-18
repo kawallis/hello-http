@@ -1,0 +1,12 @@
+body {
+    background-color: black;
+}
+
+* {
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+h1 {
+    color: rgb(255, 255, 0);
+    font-size: 4em;
+}
