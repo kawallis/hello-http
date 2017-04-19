@@ -23,7 +23,8 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
-    "cowsay": "^1.1.9"
+    "cowsay": "^1.1.9",
+    "rimraf": "^2.6.1"
   },
   "bugs": {
     "url": "https://github.com/kawallis/hello-http/issues"
