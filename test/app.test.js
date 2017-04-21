@@ -2,6 +2,8 @@ const chai = require('chai');
 const assert = chai.assert;
 const chaiHttp = require('chai-http');
 const app = require('../lib/app');
+const rimraf = require('rimraf');
+const fs = require('fs');
 
 chai.use(chaiHttp);
 
@@ -42,4 +44,26 @@ describe('app', () => {
     //             done();
     //         });
     // });
+
+    describe('POST /logs', () => {
+        before(done => {
+            rimraf('./logs', err => {
+                if(err) return done(err);
+                done();
+            });
+        });
+        it('should create a logs directory if none exists', done => {
+            request
+            .post('/logs')
+            .send({text: 'this is the post body'})
+            .end((err, res) => {
+                if(err) return done(err);
+                assert.equal(res.statusCode, 201);
+                fs.readdir('./logs', (err, files) => {
+                    assert.equal(files.length, 1);
+                    done();
+                });
+            });
+        });
+    });
 });
