@@ -15,35 +15,34 @@ describe('app', () => {
     it('I am super cool', done => {
         request.get('/fact')
             .end((err, res) => {
-                assert.equal(res.text, 'I am super cool');
+                assert.equal(res.text, 'I am turning this in late ahhhh');
                 done();
             });
     });
 
-    it('says hola baba when passad as query', done => {
-        request.get('/greeting/baba?salutation=hola')
+    it('says hola when passad as query', done => {
+        request.get('/greeting/chris?greet=hola')
             .end((err, res) => {
-                assert.equal(res.text, 'hola baba');
+                assert.equal(res.text, 'hola chris');
                 done();
             });
     });
 
     it('says hello marty when name passed', done => {
-        request.get('/greeting/marty')
+        request.get('/greeting/lucy')
             .end((err, res) => {
-                assert.equal(res.text, 'hello marty');
+                assert.equal(res.text, 'eyooo lucy');
                 done();
             });
     });
 
-    // it('gets index on root /', done => {
-    //     request.get('/')
-    //         .end((err, res) => {
-    //             console.log(res.text);
-    //             assert.equal(res.text, '<h1>What up</h1>');
-    //             done();
-    //         });
-    // });
+    it('gets index on root /', done => {
+        request.get('/')
+            .end((err, res) => {
+                assert.equal(res.text.length > 1, true );
+                done();
+            });
+    });
 
     describe('POST /logs', () => {
         before(done => {
@@ -54,12 +53,13 @@ describe('app', () => {
         });
         it('should create a logs directory if none exists', done => {
             request
-            .post('/logs')
+            .post('/logging')
             .send({text: 'this is the post body'})
             .end((err, res) => {
                 if(err) return done(err);
                 assert.equal(res.statusCode, 201);
                 fs.readdir('./logs', (err, files) => {
+                    console.log(files);
                     assert.equal(files.length, 1);
                     done();
                 });
